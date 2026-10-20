@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rate CS Teaching Staff</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Rate CS Teaching Staff</h1>
+
+<p>View and manage ratings for CS teaching staff.</p>
+
+<a class="button" th:href="@{/ratings/new}">
+    Add New Rating
+</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Overall Score</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:each="rating : ${ratings}">
+            <td th:text="${rating.name}">Name</td>
+
+            <td th:text="${rating.roleType}">Role</td>
+
+            <td th:text="${#numbers.formatDecimal((rating.clarity + rating.niceness + rating.knowledgeableScore) / 3.0, 1, 1)}">
+                Score
+            </td>
+
+            <td>
+                <a th:href="@{/ratings/{id}(id=${rating.id})}">
+                    View Details
+                </a>
+            </td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(ratings)}">
+            <td colspan="4">
+                No ratings available yet.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

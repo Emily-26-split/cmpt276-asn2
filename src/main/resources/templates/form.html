@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Rating Form</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Staff Rating Form</h1>
+
+    <form th:action="${rating.id == null} ? @{/ratings} : @{/ratings/{id}(id=${rating.id})}"
+          th:object="${rating}"
+          method="post"
+          novalidate>
+
+        <label>Name</label>
+        <input type="text" th:field="*{name}">
+        <div class="error"
+             th:if="${#fields.hasErrors('name')}"
+             th:errors="*{name}">
+        </div>
+
+        <label>Email</label>
+        <input type="email" th:field="*{email}">
+        <div class="error"
+             th:if="${#fields.hasErrors('email')}"
+             th:errors="*{email}">
+        </div>
+
+        <label>Role Type</label>
+        <select th:field="*{roleType}">
+            <option value="">Select Role</option>
+            <option th:each="role : ${roles}"
+                    th:value="${role}"
+                    th:text="${role}">
+            </option>
+        </select>
+        <div class="error"
+             th:if="${#fields.hasErrors('roleType')}"
+             th:errors="*{roleType}">
+        </div>
+
+        <label>Clarity (1–10)</label>
+        <input type="number" min="1" max="10"
+               th:field="*{clarity}">
+        <div class="error"
+             th:if="${#fields.hasErrors('clarity')}"
+             th:errors="*{clarity}">
+        </div>
+
+        <label>Niceness (1–10)</label>
+        <input type="number" min="1" max="10"
+               th:field="*{niceness}">
+        <div class="error"
+             th:if="${#fields.hasErrors('niceness')}"
+             th:errors="*{niceness}">
+        </div>
+
+        <label>Knowledgeable Score (1–10)</label>
+        <input type="number" min="1" max="10"
+               th:field="*{knowledgeableScore}">
+        <div class="error"
+             th:if="${#fields.hasErrors('knowledgeableScore')}"
+             th:errors="*{knowledgeableScore}">
+        </div>
+
+        <label>Comment (Optional)</label>
+        <textarea rows="4"
+                  th:field="*{comment}">
+        </textarea>
+        <div class="error"
+             th:if="${#fields.hasErrors('comment')}"
+             th:errors="*{comment}">
+        </div>
+
+        <button type="submit">Save Rating</button>
+
+        <a th:href="@{/}">Cancel</a>
+
+    </form>
+
+</div>
+
+</body>
+</html>
