@@ -116,3 +116,10 @@ On macOS or Linux:
 ```
 
 See `TESTING.md` for more information about the tests.
+
+## Email Uniqueness Rule
+
+Email addresses are not required to be unique in this application.
+Multiple ratings may refer to the same teaching staff member, so
+the same email address can appear in more than one rating record.
+Each rating is uniquely identified by its automatically generated ID.
